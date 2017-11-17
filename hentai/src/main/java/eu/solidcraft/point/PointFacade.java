@@ -1,23 +1,28 @@
 package eu.solidcraft.point;
 
+import eu.solidcraft.film.dto.FilmTypeDto;
+
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 
 class PointFacade {
 
-    Map<Integer, Integer> pointsMap = new ConcurrentHashMap<>();
+    Map<Integer, Points> pointsMap = new ConcurrentHashMap<>();
 
-    public Integer getPointsForUser(int userId) {
-        return pointsMap.getOrDefault(userId, 0);
+    public Points getPointsForUser(int userId) {
+        return pointsMap.getOrDefault(userId, Points.NO_POINTS);
     }
 
-
     public void onFilmRental(FilmRentalEvent event) {
-        Integer userId = event.getUserId();
-        int points = 3;
+        int userId = event.getUserId();
+        Points points = calculatePointsForFilm(event.getFilmType());
         pointsMap.compute(userId, (u, oldVal) -> Optional.ofNullable(oldVal)
-                .map(x -> x + points)
+                .map(points::add)
                 .orElse(points));
+    }
+
+    private Points calculatePointsForFilm(FilmTypeDto filmType) {
+        return filmType == FilmTypeDto.NEW ? new Points(2) : new Points(1);
     }
 }
