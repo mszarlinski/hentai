@@ -68,7 +68,7 @@ class AcceptanceSpec extends IntegrationSpec implements SampleFilms {
             request.getFilms().add(item1)
             request.getFilms().add(item2)
 
-            ResultActions rentalResult = mockMvc.perform(post("/points")
+            ResultActions rentalResult = mockMvc.perform(post("/rent")
                     .contentType(MediaType.APPLICATION_JSON)
                     .content(objectMapper.writeValueAsBytes(request)))
 
