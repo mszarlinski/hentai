@@ -21,18 +21,11 @@ class PointSpec extends Specification {
         given:
             FilmRentalEvent event = new FilmRentalEvent(USER_ID);
             pointFacade.onFilmRental(event);
-            pointFacade.addPointsForUser(USER_ID, 3)
 
         when:
             def points = pointFacade.getPointsForUser(USER_ID)
 
         then:
             points == 3
-
-        when:
-            pointFacade.addPointsForUser(USER_ID, 1)
-
-        then:
-            pointFacade.getPointsForUser(USER_ID) == 4
     }
 }

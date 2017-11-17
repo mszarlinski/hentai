@@ -12,7 +12,10 @@ class PointFacade {
         return pointsMap.getOrDefault(userId, 0);
     }
 
-    public void addPointsForUser(int userId, int points) {
+
+    public void onFilmRental(FilmRentalEvent event) {
+        Integer userId = event.getUserId();
+        int points = 3;
         pointsMap.compute(userId, (u, oldVal) -> Optional.ofNullable(oldVal)
                 .map(x -> x + points)
                 .orElse(points));
