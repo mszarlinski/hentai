@@ -6,6 +6,6 @@ import lombok.Value;
 @AllArgsConstructor
 @Value
 public class FilmRentalEvent {
-    private final int userId;
+    private final String userId;
     private final FilmTypeDto filmType;
 }

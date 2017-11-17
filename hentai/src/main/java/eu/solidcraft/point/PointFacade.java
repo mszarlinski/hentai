@@ -9,14 +9,14 @@ import java.util.concurrent.ConcurrentHashMap;
 
 class PointFacade {
 
-    Map<Integer, Points> pointsMap = new ConcurrentHashMap<>();
+    Map<String, Points> pointsMap = new ConcurrentHashMap<>();
 
-    public Points getPointsForUser(int userId) {
+    public Points getPointsForUser(String userId) {
         return pointsMap.getOrDefault(userId, Points.NO_POINTS);
     }
 
     public void onFilmRental(FilmRentalEvent event) {
-        int userId = event.getUserId();
+        String userId = event.getUserId();
         Points points = calculatePointsForFilm(event.getFilmType());
         pointsMap.compute(userId, (u, oldVal) -> Optional.ofNullable(oldVal)
                 .map(points::add)

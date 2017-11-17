@@ -34,7 +34,14 @@ class AcceptanceSpec extends IntegrationSpec implements SampleFilms {
                 }"""))
 
         when: 'I go to /points'
+            ResultActions points = mockMvc.perform(get("/points"))
+
         then: 'I see I have no points'
+            points.andExpect(status().isOk())
+                    .andExpect(content().json("""
+                {
+                    "points": 0
+                }"""))
 
         when: 'I post to /calculate with both films for 3 days'
         then: 'I can see it will cost me 120 SEK for Trumpet and 90 SEK for Clingon'

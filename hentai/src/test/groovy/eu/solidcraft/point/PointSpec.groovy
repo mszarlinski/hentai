@@ -1,15 +1,14 @@
 package eu.solidcraft.point
 
-import eu.solidcraft.shared.FilmTypeDto
 import eu.solidcraft.shared.FilmRentalEvent
+import eu.solidcraft.shared.FilmTypeDto
 import spock.lang.Specification
 import spock.lang.Unroll
 
-
 class PointSpec extends Specification {
 
-    public static final int USER1 = 1;
-    public static final int USER2 = 2
+    public static final String USER1 = "Ala"
+    public static final String USER2 = "Beata"
 
     def pointFacade = new PointFacade()
 
