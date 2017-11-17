@@ -1,6 +1,7 @@
 package eu.solidcraft.point;
 
-import eu.solidcraft.film.dto.FilmTypeDto;
+import eu.solidcraft.shared.FilmRentalEvent;
+import eu.solidcraft.shared.FilmTypeDto;
 
 import java.util.Map;
 import java.util.Optional;

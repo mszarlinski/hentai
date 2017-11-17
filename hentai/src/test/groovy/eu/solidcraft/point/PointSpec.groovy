@@ -1,43 +1,41 @@
 package eu.solidcraft.point
 
-import eu.solidcraft.film.dto.FilmTypeDto
+import eu.solidcraft.shared.FilmTypeDto
+import eu.solidcraft.shared.FilmRentalEvent
 import spock.lang.Specification
 import spock.lang.Unroll
 
 
 class PointSpec extends Specification {
 
-    public static final int USER_ID = 12
+    public static final int USER1 = 1;
+    public static final int USER2 = 2
 
     def pointFacade = new PointFacade()
 
-    def "when I go to /points then I see I have no points"() {
+    def "should tell the amount of points for an user"() {
+        given:
+            pointFacade.onFilmRental(new FilmRentalEvent(USER2, FilmTypeDto.OLD))
         when:
-            Points points = pointFacade.getPointsForUser(USER_ID)
-
+            Points points = pointFacade.getPointsForUser(USER2)
         then:
+            points == new Points(1)
+
+        when:
+            points = pointFacade.getPointsForUser(USER1)
+        then:
+
             points == Points.NO_POINTS
     }
 
-//    def "when I go to /points then I see I have 3 points"() {
-//        given:
-//            FilmRentalEvent event = new FilmRentalEvent(USER_ID)
-//            pointFacade.onFilmRental(event)
-//
-//        when:
-//            def points = pointFacade.getPointsForUser(USER_ID)
-//
-//        then:
-//            points == 3
-//    }
 
     @Unroll
     def "should give #expectedPoints for film of type #filmType"() {
         given:
-            pointFacade.onFilmRental(new FilmRentalEvent(USER_ID, filmType))
+            pointFacade.onFilmRental(new FilmRentalEvent(USER2, filmType))
 
         when:
-            def points = pointFacade.getPointsForUser(USER_ID)
+            def points = pointFacade.getPointsForUser(USER2)
 
         then:
             points == expectedPoints

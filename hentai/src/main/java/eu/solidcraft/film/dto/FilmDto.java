@@ -1,5 +1,6 @@
 package eu.solidcraft.film.dto;
 
+import eu.solidcraft.shared.FilmTypeDto;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

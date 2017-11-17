@@ -1,6 +1,7 @@
 package eu.solidcraft.film.domain;
 
-import eu.solidcraft.film.dto.FilmTypeDto;
+
+import eu.solidcraft.shared.FilmTypeDto;
 
 import java.math.BigDecimal;
 

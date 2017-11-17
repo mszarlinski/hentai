@@ -1,12 +1,11 @@
-package eu.solidcraft.point;
+package eu.solidcraft.shared;
 
-import eu.solidcraft.film.dto.FilmTypeDto;
 import lombok.AllArgsConstructor;
 import lombok.Value;
 
 @AllArgsConstructor
 @Value
-class FilmRentalEvent {
+public class FilmRentalEvent {
     private final int userId;
     private final FilmTypeDto filmType;
 }
