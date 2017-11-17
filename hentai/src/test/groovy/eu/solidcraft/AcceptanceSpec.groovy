@@ -4,8 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import eu.solidcraft.base.IntegrationSpec
 import eu.solidcraft.film.domain.FilmFacade
 import eu.solidcraft.film.domain.SampleFilms
-import eu.solidcraft.rent.FilmRentalRequest
-import eu.solidcraft.rent.FilmRentalRequestItem
+import eu.solidcraft.rent.RentalController
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.MediaType
 import org.springframework.security.test.context.support.WithMockUser
@@ -32,7 +31,7 @@ class AcceptanceSpec extends IntegrationSpec implements SampleFilms {
             ResultActions getFilms = mockMvc.perform(get("/films"))
         then: 'I see both films'
             getFilms.andExpect(status().isOk())
-                .andExpect(content().json("""
+                    .andExpect(content().json("""
                 {
                     "content": [
                         {"title":"$clingon.title","type":"$clingon.type"},
@@ -55,13 +54,13 @@ class AcceptanceSpec extends IntegrationSpec implements SampleFilms {
 
         when: 'I post to /rent with both firms for 3 days'
 
-            FilmRentalRequest request = new FilmRentalRequest()
+            RentalController.FilmRentalRequest request = new RentalController.FilmRentalRequest()
 
-            FilmRentalRequestItem item1 = new FilmRentalRequestItem()
+            RentalController.FilmRentalRequestItem item1 = new RentalController.FilmRentalRequestItem()
             item1.setTitle(clingon.title)
             item1.setDuration("3")
 
-            FilmRentalRequestItem item2 = new FilmRentalRequestItem()
+            RentalController.FilmRentalRequestItem item2 = new RentalController.FilmRentalRequestItem()
             item1.setTitle(trumper.title)
             item1.setDuration("3")
 
