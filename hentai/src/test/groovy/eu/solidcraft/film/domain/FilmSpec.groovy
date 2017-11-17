@@ -1,6 +1,6 @@
 package eu.solidcraft.film.domain
 
-import eu.solidcraft.film.dto.FilmDto
+import eu.solidcraft.shared.FilmDto
 import org.junit.After
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageRequest

@@ -1,4 +1,4 @@
-package eu.solidcraft.film.dto;
+package eu.solidcraft.shared;
 
 import eu.solidcraft.shared.FilmTypeDto;
 import lombok.Builder;

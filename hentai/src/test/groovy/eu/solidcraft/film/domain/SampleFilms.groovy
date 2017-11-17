@@ -1,6 +1,6 @@
 package eu.solidcraft.film.domain
 
-import eu.solidcraft.film.dto.FilmDto
+import eu.solidcraft.shared.FilmDto
 import eu.solidcraft.shared.FilmTypeDto
 import groovy.transform.CompileStatic
 
