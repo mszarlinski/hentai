@@ -5,7 +5,7 @@ import eu.solidcraft.shared.FilmRentalEvent;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
-public class RentFacade {
+public class RentalFacade {
     private final EventPublisher eventPublisher;
 
     public void rentFilm(String userId, FilmDto filmDto) {

@@ -1,19 +1,26 @@
 package eu.solidcraft
 
+import com.fasterxml.jackson.databind.ObjectMapper
 import eu.solidcraft.base.IntegrationSpec
 import eu.solidcraft.film.domain.FilmFacade
 import eu.solidcraft.film.domain.SampleFilms
+import eu.solidcraft.rent.FilmRentalRequest
+import eu.solidcraft.rent.FilmRentalRequestItem
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.http.MediaType
 import org.springframework.security.test.context.support.WithMockUser
 import org.springframework.test.web.servlet.ResultActions
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 
 class AcceptanceSpec extends IntegrationSpec implements SampleFilms {
     @Autowired
     FilmFacade filmFacade
+
+    ObjectMapper objectMapper = new ObjectMapper()
 
     @WithMockUser
     def "positive renting scenario"() {
@@ -47,7 +54,26 @@ class AcceptanceSpec extends IntegrationSpec implements SampleFilms {
         then: 'I can see it will cost me 120 SEK for Trumpet and 90 SEK for Clingon'
 
         when: 'I post to /rent with both firms for 3 days'
+
+            FilmRentalRequest request = new FilmRentalRequest()
+
+            FilmRentalRequestItem item1 = new FilmRentalRequestItem()
+            item1.setTitle(clingon.title)
+            item1.setDuration("3")
+
+            FilmRentalRequestItem item2 = new FilmRentalRequestItem()
+            item1.setTitle(trumper.title)
+            item1.setDuration("3")
+
+            request.getFilms().add(item1)
+            request.getFilms().add(item2)
+
+            ResultActions rentalResult = mockMvc.perform(post("/points")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(objectMapper.writeValueAsBytes(request)))
+
         then: 'I have rented both movies'
+            rentalResult.andExpect(status().isOk())
 
         when: 'I go to /rent'
         then: 'I see both movies are rented'

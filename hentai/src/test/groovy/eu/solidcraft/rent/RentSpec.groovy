@@ -1,16 +1,15 @@
 package eu.solidcraft.rent
 
 import eu.solidcraft.shared.FilmDto
-import eu.solidcraft.shared.FilmTypeDto
 import spock.lang.Specification
 
-import static eu.solidcraft.shared.FilmTypeDto.*
+import static eu.solidcraft.shared.FilmTypeDto.OLD
 
 class RentSpec extends Specification {
 
     public static final String USER_ID = "Alice"
     EventPublisher eventPublisher = Mock(EventPublisher);
-    RentFacade rentFacade = new RentFacade(eventPublisher)
+    RentalFacade rentFacade = new RentalFacade(eventPublisher)
 
 
     def 'when movie is rented an event is dispatched'() {
